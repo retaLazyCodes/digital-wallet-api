@@ -28,7 +28,7 @@ namespace DigitalWalletApi.Domain
             _list.Add(new Transaction()
             {
                 Id = 0,
-                Description = "Descripcion1",
+                Description = "Desc1",
                 Price = 20.0M,
                 Date = new DateTime(2015, 12, 25),
                 Category = new Category(),
@@ -36,7 +36,7 @@ namespace DigitalWalletApi.Domain
             _list.Add(new Transaction()
             {
                 Id = 1,
-                Description = "Descripcion2",
+                Description = "Desc2",
                 Price = 15.0M,
                 Date = DateTime.Now,
                 Category = new Category(),
@@ -72,7 +72,8 @@ namespace DigitalWalletApi.Domain
         public IEnumerable FindByName(string name)
         {
             return  _list
-                .Where(t => t.Description.Contains(name)).ToList();
+                .Where(t => t.Description.ToLower()
+                    .Contains(name)).ToList();
         }
     }
 }

@@ -24,5 +24,43 @@ namespace DigitalWalletApi.Controllers
             var transactions = _transactionService.GetAll();
             return Ok(transactions);
         }
+        
+        [HttpGet("{id:int}")]
+        public IActionResult GetById(int id)
+        {
+            var transaction = _transactionService.FindById(id);
+            return Ok(transaction);
+        }
+        
+        [HttpGet("{name}")]
+        public IActionResult  GetByName(string name)
+        {
+            name = name.ToLower();
+            return Ok(_transactionService.FindByName(name));
+        }
+        
+        [HttpPost]
+        public IActionResult Create(Transaction transaction)
+        {
+            var result = _transactionService.Add(transaction);
+            if (result) {
+                return Ok(transaction);
+            }
+            else {
+                return BadRequest();
+            }
+        }
+        
+        [HttpDelete]
+        public IActionResult Delete(int id)
+        {
+            var result = _transactionService.Delete(id);
+            if (result) {
+                return Ok(new { Message = "Deleted Successful"});
+            }
+            else {
+                return BadRequest();
+            }
+        }
     }
 }
