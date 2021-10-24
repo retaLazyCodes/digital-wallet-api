@@ -39,7 +39,7 @@ namespace DigitalWalletApi
                     .EnableDetailedErrors(); // <-- with debugging (remove for production).
             });
             
-            services.AddTransient<ITransactionService, ExpenseService>();
+            services.AddTransient<ITransactionService, TransactionService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

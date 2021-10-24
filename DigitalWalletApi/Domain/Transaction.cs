@@ -14,9 +14,12 @@ namespace DigitalWalletApi.Domain
         [Column(TypeName = "decimal(10,2)")]
         public decimal Price {get; set;}
         
-        public Category Category { get; set; }
-        
+        [ForeignKey("Category")]
+        public int CategoryId { get; set; }
+
         public DateTime Date {get; set;}
+
+        public bool IsIncome { get; set; }
 
     }
 }

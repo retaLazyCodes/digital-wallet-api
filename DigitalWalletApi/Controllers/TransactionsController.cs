@@ -25,6 +25,20 @@ namespace DigitalWalletApi.Controllers
             return Ok(transactions);
         }
         
+        [HttpGet("incomes")]
+        public IActionResult GetIncomes()
+        {
+            var transactions = _transactionService.GetIncomes();
+            return Ok(transactions);
+        }
+        
+        [HttpGet("expenses")]
+        public IActionResult GetExpenses()
+        {
+            var transactions = _transactionService.GetExpenses();
+            return Ok(transactions);
+        }
+        
         [HttpGet("{id:int}")]
         public IActionResult GetById(int id)
         {

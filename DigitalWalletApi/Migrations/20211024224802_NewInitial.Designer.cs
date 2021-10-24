@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DigitalWalletApi.Migrations
 {
     [DbContext(typeof(DigitalWalletDbContext))]
-    [Migration("20211024163719_Initial")]
-    partial class Initial
+    [Migration("20211024224802_NewInitial")]
+    partial class NewInitial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,16 +30,16 @@ namespace DigitalWalletApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Category");
+                    b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("DigitalWalletApi.Domain.Expense", b =>
+            modelBuilder.Entity("DigitalWalletApi.Domain.Transaction", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("CategoryId")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Date")
@@ -50,23 +50,15 @@ namespace DigitalWalletApi.Migrations
                         .HasMaxLength(80)
                         .HasColumnType("varchar(80)");
 
+                    b.Property<bool>("IsIncome")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(10,2)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("Expenses");
-                });
-
-            modelBuilder.Entity("DigitalWalletApi.Domain.Expense", b =>
-                {
-                    b.HasOne("DigitalWalletApi.Domain.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId");
-
-                    b.Navigation("Category");
+                    b.ToTable("Transactions");
                 });
 #pragma warning restore 612, 618
         }

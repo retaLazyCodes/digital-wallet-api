@@ -6,12 +6,12 @@ using Microsoft.Extensions.Logging;
 
 namespace DigitalWalletApi.Domain
 {
-    public class ExpenseService : ITransactionService
+    public class TransactionService : ITransactionService
     {
-        private readonly ILogger<ExpenseService> _logger;
+        private readonly ILogger<TransactionService> _logger;
         private readonly DigitalWalletDbContext _db;
 
-        public ExpenseService(ILogger<ExpenseService> logger, DigitalWalletDbContext db)
+        public TransactionService(ILogger<TransactionService> logger, DigitalWalletDbContext db)
         {
             _logger = logger;
             _db = db;
@@ -20,36 +20,47 @@ namespace DigitalWalletApi.Domain
         public IEnumerable<Transaction> GetAll()
         {
             _logger.LogInformation($"Getting all transactions");;
-            return _db.Expenses.ToList();
+            return _db.Transactions.ToList();
+        }
+
+        public IEnumerable<Transaction> GetIncomes()
+        {
+            return _db.Transactions.Where(t => t.IsIncome == true);
+        }
+
+        public IEnumerable<Transaction> GetExpenses()
+        {
+            return _db.Transactions.Where(t => t.IsIncome != true);
         }
 
         public Transaction FindById(int id)
         {
             _logger.LogInformation($"Searching for transaction with id: {id}");;
-            var transaction = _db.Expenses.SingleOrDefault(t => t.Id == id);
+            var transaction = _db.Transactions.SingleOrDefault(t => t.Id == id);
             return transaction;
         }
 
         public bool Add(Transaction transaction)
         {
-            var expense = new Expense
+            var expense = new Transaction
             {
                 Description = transaction.Description,
                 Price = transaction.Price,
-                Category = transaction.Category,
-                Date = transaction.Date
+                CategoryId = transaction.CategoryId,
+                Date = transaction.Date,
+                IsIncome = transaction.IsIncome
             };
             
-            _db.Expenses.Add(expense);
+            _db.Transactions.Add(expense);
             _db.SaveChanges();
             return true;
         }
 
         public bool Delete(int id)
         {
-            var transaction = _db.Expenses.SingleOrDefault(t => t.Id == id);
+            var transaction = _db.Transactions.SingleOrDefault(t => t.Id == id);
             if (transaction != null) {
-                _db.Expenses.Remove(transaction);
+                _db.Transactions.Remove(transaction);
                 _db.SaveChanges();
                 return true;
             }
@@ -58,7 +69,7 @@ namespace DigitalWalletApi.Domain
 
         public IEnumerable FindByName(string name)
         {
-            return _db.Expenses.Where(t => t.Description.ToLower()
+            return _db.Transactions.Where(t => t.Description.ToLower()
                     .Contains(name)).ToList();
         }
     }
