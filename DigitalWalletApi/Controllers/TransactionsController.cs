@@ -59,7 +59,7 @@ namespace DigitalWalletApi.Controllers
                 return Ok(new { Message = "Deleted Successful"});
             }
             else {
-                return BadRequest();
+                return BadRequest(new { Message = "The transaction with that id does not exist "});
             }
         }
     }

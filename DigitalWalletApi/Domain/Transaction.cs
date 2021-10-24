@@ -17,5 +17,6 @@ namespace DigitalWalletApi.Domain
         public Category Category { get; set; }
         
         public DateTime Date {get; set;}
+
     }
 }
