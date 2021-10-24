@@ -25,6 +25,7 @@ namespace DigitalWalletApi.Domain
 
         public IEnumerable<Transaction> GetIncomes()
         {
+            _logger.LogInformation($"Searching for incomes transactions");;
             return _db.Transactions.Where(t => t.IsIncome == true);
         }
 
