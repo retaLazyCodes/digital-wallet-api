@@ -40,6 +40,7 @@ namespace DigitalWalletApi
             });
             
             services.AddTransient<ITransactionService, TransactionService>();
+            services.AddTransient<ICategoryService, CategoryService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

@@ -47,7 +47,7 @@ namespace DigitalWalletApi.Controllers
         }
         
         [HttpGet("{name}")]
-        public IActionResult  GetByName(string name)
+        public IActionResult GetByName(string name)
         {
             name = name.ToLower();
             return Ok(_transactionService.FindByName(name));
