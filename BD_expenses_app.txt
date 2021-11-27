@@ -1,0 +1,42 @@
+----------------
+BD estructura
+----------------
+
+Hay que crear las tablas:
+
+// El id debe ser AUTO_INCREMENT
+// category referencia a un id de la tabla Categories
+// user hace exactamente lo mismo que category, pero con la tabla User
+
+- Income (ingresos)
+-------------- id (PK) [INT] 
+-------------- description
+-------------- price
+-------------- category (FK) [INT] 
+-------------- date
+-------------- user (FK) [INT] 
+
+
+- Expenses (egresos)
+-------------- id (PK) [INT] 
+-------------- description
+-------------- price
+-------------- category (FK) [INT] 
+-------------- date
+-------------- user (FK) [INT] 
+
+
+// cada categoria tiene un 'id' y su 'descripcion'   EJEMPLO: '1' 'Food', '2' 'Drik'
+// El id debe ser AUTO_INCREMENT
+- Categories
+------------ id (PK) [INT] 
+------------ description
+
+
+// El id debe ser AUTO_INCREMENT
+// El username no puede repetirse
+// Encriptar password
+- User
+------------ id (PK)
+------------ username
+------------ password
